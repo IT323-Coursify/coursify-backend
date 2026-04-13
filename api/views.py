@@ -39,12 +39,21 @@ def login(request):
     token, _ = Token.objects.get_or_create(user=user)
     return Response({'token': token.key, 'username': user.username})
 
-@api_view(['GET'])
+@api_view(['GET', 'PATCH'])
 @permission_classes([IsAuthenticated])
 def profile(request):
     student = StudentProfile.objects.get(user=request.user)
-    serializer = StudentProfileSerializer(student)
-    return Response(serializer.data)
+
+    if request.method == 'GET':
+        serializer = StudentProfileSerializer(student)
+        return Response(serializer.data)
+
+    if request.method == 'PATCH':
+        serializer = StudentProfileSerializer(student, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -61,13 +70,13 @@ def submit_assessment(request):
     data    = request.data
 
     result = AssessmentResult.objects.create(
-        student        = student,
-        strand         = data.get('strand'),
-        riasec_scores  = data.get('riasec_scores', {}),
-        mbti_type      = data.get('mbti_type', ''),
+        student         = student,
+        strand          = data.get('strand'),
+        riasec_scores   = data.get('riasec_scores', {}),
+        mbti_type       = data.get('mbti_type', ''),
         academic_scores = data.get('academic_scores', {}),
-        top_course     = data.get('top_course', ''),
-        match_score    = data.get('match_score', 0),
+        top_course      = data.get('top_course', ''),
+        match_score     = data.get('match_score', 0),
     )
 
     for rec in data.get('recommendations', []):
@@ -81,6 +90,3 @@ def submit_assessment(request):
 
     return Response({'message': 'Assessment saved.', 'id': result.id},
                     status=status.HTTP_201_CREATED)
-
-
-

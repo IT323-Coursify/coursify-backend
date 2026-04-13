@@ -7,4 +7,5 @@ urlpatterns = [
     path('profile/',            views.profile,            name='profile'),
     path('assessment/submit/',  views.submit_assessment,  name='submit-assessment'),
     path('assessment/history/', views.assessment_history, name='assessment-history'),
+    
 ]
