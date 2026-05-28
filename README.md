@@ -1,4 +1,4 @@
-Coursify Web
+## Coursify Web
 ## Project Description
 Coursify Web is the browser-based frontend of the Coursify platform — a Senior High School course recommendation system. It provides students with a full psychometric assessment experience and personalized ML-powered course recommendations, while also offering dedicated dashboards for admins and superadmins to manage users and monitor platform analytics.
 The web version supports all three user roles: student, admin, and superadmin. It communicates with the shared Coursify FastAPI backend via REST API.
@@ -103,11 +103,13 @@ P: Genesis1:1
 •	Assessment results not editable — Once an assessment is submitted it is permanently stored; there is no way to retake or delete a specific attempt from the UI
 •	No real-time updates — The analytics dashboard and user management table require a manual page refresh to reflect the latest data
 
-Coursify Web
-Project Description
+
+## Coursify Web
+## Project Description
 Coursify Web is the browser-based frontend of the Coursify platform — a Senior High School course recommendation system. It provides students with a full psychometric assessment experience and personalized ML-powered course recommendations, while also offering dedicated dashboards for admins and superadmins to manage users and monitor platform analytics.
 The web version supports all three user roles: student, admin, and superadmin. It communicates with the shared Coursify FastAPI backend via REST API.
-Features
+
+## Features
 Student
 •	User Authentication — Registration with email OTP verification, login, forgot password with reset code flow, and JWT-based session management
 •	RIASEC Assessment — Holland Interest Inventory with 36 questions across 6 personality types (Realistic, Investigative, Artistic, Social, Enterprising, Conventional)
@@ -126,7 +128,8 @@ Superadmin
 •	Audit Log — Timestamped record of all admin-initiated role and status changes
 •	CSV Export — Download all user data as a CSV file
 •	Role-Based Access Control — Three-tier access enforced via protected routes on the frontend
-Technology Stack
+
+## Technology Stack
 Layer	Technology
 Framework	React.js (Create React App)
 Routing	React Router v6
@@ -135,7 +138,8 @@ Icons	React Icons
 Local Storage	localStorage
 Styling	Plain CSS (Nunito + Sora fonts via Google Fonts)
 Environment	.env via REACT_APP_* variables
-System Architecture
+
+## System Architecture
 Coursify Web (React.js)
         │
         │  localStorage
@@ -160,7 +164,8 @@ Coursify Web (React.js)
         │  REST API calls (JWT Bearer token)
         ▼
 
-Coursify FastAPI Backend
+
+## Coursify FastAPI Backend
 All API requests include a Bearer token in the Authorization header. The ProtectedRoute component checks coursify_role from localStorage before rendering any route, redirecting unauthorized users to the appropriate fallback.
 
 ## Installation & Setup
@@ -191,11 +196,13 @@ Note: The basename is set to /coursify-web in the router. If you deploy to a dif
 •	Assessment results not editable — Once an assessment is submitted it is permanently stored; there is no way to retake or delete a specific attempt from the UI
 •	No real-time updates — The analytics dashboard and user management table require a manual page refresh to reflect the latest data
 
-Coursify Backend
-Project Description
+
+## Coursify Backend
+## Project Description
 Coursify Backend is the shared FastAPI server that powers both the Coursify Web and Coursify Mobile applications. It handles user authentication, psychometric assessment scoring, machine learning course recommendations, AI-generated profile summaries, and role-based admin operations.
 It is built with Python and FastAPI, uses MongoDB Atlas as the database, and exposes a REST API consumed by both frontend platforms via JWT-authenticated requests.
-Features
+
+## Features
 •	User Authentication — Registration with email OTP verification, login, JWT token issuance, forgot password with reset code, and password reset
 •	Role-Based Access Control — Three-tier role system (user, admin, superadmin) enforced via FastAPI middleware dependencies on all protected endpoints
 •	Assessment Engine — Randomized question delivery across RIASEC, Big Five, and Aptitude collections; server-side scoring with reverse-scoring support for Big Five
@@ -336,6 +343,11 @@ Known Limitations
 •	In-memory OTP storage — Pending registrations and password reset codes are stored in Python dictionaries (pending_users, reset_codes) in memory. This means they are lost on server restart and will not work correctly if the backend is scaled to multiple instances. A production-ready solution would store these temporarily in MongoDB or Redis with a TTL index
 •	ML model is static — The scikit-learn model is loaded once at startup from a local file. It does not retrain automatically as new assessment data accumulates
 •	Admin and superadmin roles are web-only — The mobile application supports the student role only. Admin and superadmin credentials will authenticate successfully via the API but the mobile app does not implement any admin UI or navigation
+
+## Deployment Links
+https://coursify-web-mzls.onrender.com/
+https://coursify-fastapi-backend-1.onrender.com/
+https://drive.google.com/file/d/1KVlR_xhUrL87Eb8BF9vENUXHQWB4bY8B/view
 
 ## Screenshots
 Mobile
